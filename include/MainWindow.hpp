@@ -3,7 +3,7 @@
 #include <QWidget>
 #include <QMainWindow>
 
-class Ui_MainWindow;
+namespace Ui { class MainWindow; };
 
 class MainWindow : public QMainWindow
 {
@@ -12,6 +12,6 @@ public:
     MainWindow(QWidget* parent = nullptr, Qt::WindowFlags flags = Qt::WindowFlags());
     ~MainWindow();
 private:
-    Ui_MainWindow* ui;
+    Ui::MainWindow* ui;
 };
 
