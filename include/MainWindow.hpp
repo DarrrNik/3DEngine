@@ -2,6 +2,9 @@
 
 #include <QWidget>
 #include <QMainWindow>
+#include <QOpenGLWidget>
+
+class Scene;
 
 namespace Ui { class MainWindow; };
 
@@ -13,5 +16,7 @@ public:
     ~MainWindow();
 private:
     Ui::MainWindow* ui;
+
+    Scene* oglWidget;
 };
 
