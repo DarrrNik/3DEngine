@@ -3,24 +3,24 @@
 Scene::Sphere::Sphere(QString name) : Object(name)
 {
     vertices = {};
-    int stacks = 16, slices = 32;
+    int stacks = 16, slices = 32; // 16 широт, 32 долготы
     float radius = 0.75f;
     int id = 0;
     for (int i = 0; i <= stacks; ++i)
     {
-        float phi = M_PI * float(i) / stacks; // широта от 0 до π
+        float phi = M_PI * float(i) / stacks;
         float y = cos(phi);
-        float r = sin(phi); // радиус горизонтального круга
+        float r = sin(phi);
 
         for (int j = 0; j <= slices; ++j)
         {
-            float theta = 2.0f * M_PI * float(j) / slices; // долгота от 0 до 2π
+            float theta = 2.0f * M_PI * float(j) / slices;
             float x = r * cos(theta);
             float z = r * sin(theta);
 
             Vertex v;
             v.pos = QVector3D(x * radius, y * radius, z * radius);
-            v.faceID = id; // можно не использовать
+            v.faceID = id;
 
             vertices.push_back(v);
             id = (id + 1) % 7;

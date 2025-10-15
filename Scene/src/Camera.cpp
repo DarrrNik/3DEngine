@@ -14,13 +14,6 @@ QMatrix4x4 Camera::getViewMatrix() const
     return view;
 }
 
-QMatrix4x4 Camera::getTranslationMatrix() const
-{
-    QMatrix4x4 mat;
-    mat.translate(-Position);
-    return mat;
-}
-
 void Camera::moveForward(float distance)
 {
     Position += Front * distance;
@@ -36,18 +29,6 @@ void Camera::moveUp(float distance)
     Position += Up * distance;
 }
 
-void Camera::rotate(float deltaYaw, float deltaPitch, float deltaRoll)
-{
-    Yaw += deltaYaw;
-    Pitch += deltaPitch;
-    Roll += deltaRoll;
-
-    if (Pitch > 89.0f) Pitch = 89.0f;
-    if (Pitch < -89.0f) Pitch = -89.0f;
-
-    updateVectors();
-}
-
 void Camera::rotate(QPoint delta)
 {
     float sensitivity = 0.085f;
@@ -56,19 +37,6 @@ void Camera::rotate(QPoint delta)
 
     if (Pitch > 89.0f) Pitch = 89.0f;
     if (Pitch < -89.0f) Pitch = -89.0f;
-    updateVectors();
-}
-
-void Camera::setPosition(const QVector3D& pos)
-{
-    Position = pos;
-}
-
-void Camera::setAngles(float yaw, float pitch, float roll)
-{
-    Yaw = yaw;
-    Pitch = pitch;
-    Roll = roll;
     updateVectors();
 }
 
@@ -108,14 +76,12 @@ void Camera::move()
 
 void Camera::updateVectors()
 {
-    // Вычисление нового вектора фронта по углам Эйлера
     QVector3D front;
     front.setX(qCos(qDegreesToRadians(Yaw)) * qCos(qDegreesToRadians(Pitch)));
     front.setY(qSin(qDegreesToRadians(Pitch)));
     front.setZ(qSin(qDegreesToRadians(Yaw)) * qCos(qDegreesToRadians(Pitch)));
     Front = front.normalized();
 
-    // Правый и верхний векторы
     Right = QVector3D::crossProduct(Front, WorldUp).normalized();
     Up = QVector3D::crossProduct(Right, Front).normalized();
 }

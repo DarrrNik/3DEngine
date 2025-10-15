@@ -30,25 +30,14 @@ public:
         Down
     };
 
-    // Возвращает матрицу вида для шейдера
     QMatrix4x4 getViewMatrix() const;
 
-    // Отдельная матрица перевода (только сдвиг)
-    QMatrix4x4 getTranslationMatrix() const;
-
-    // Перемещения в локальных осях камеры
     void moveForward(float distance);
     void moveRight(float distance);
     void moveUp(float distance);
 
-    // Поворот камеры: дельты в градусах
-    void rotate(float deltaYaw, float deltaPitch, float deltaRoll = 0.0f);
     void rotate(QPoint delta);
-
-    // Быстрая установка позиции и углов
-    void setPosition(const QVector3D& pos);
-    void setAngles(float yaw, float pitch, float roll = 0.0f);
-
+    
     void setMove(Direction dir, bool enable);
     void move();
 

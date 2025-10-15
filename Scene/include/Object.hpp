@@ -42,7 +42,7 @@ protected:
 
     struct Vertex {
         QVector3D pos;
-        float faceID;   // каждый треугольник куба имеет свою грань
+        float faceID;
     };
     
     QVector3D position { 0, 0, 0 };
