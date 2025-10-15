@@ -1,26 +1,34 @@
-find_package(GLEW REQUIRED)
-find_package(glm REQUIRED)
-find_package(Qt6 REQUIRED COMPONENTS
-    OpenGL
-    OpenGLWidgets
-)
+set(CMAKE_AUTOUIC ON)
+set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTORCC ON)
 
-include_directories(
-    ./include/
+find_package(Qt6 REQUIRED COMPONENTS 
+    Core 
+    Widgets 
+    OpenGLWidgets
+    OpenGL
 )
 
 file(GLOB_RECURSE PROJECT_SOURCES
-    ./src/*.cpp
-    ./include/*.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/*.hpp
 )
 
 add_library(Scene SHARED 
     ${PROJECT_SOURCES}
-    ${GLEW_INCLUDE_DIRS}
-    ${GLM_INCLUDE_DIRS}
 )
 
-target_link_libraries(Scene PRIVATE GLEW::GLEW glm::glm Qt6::OpenGL Qt6::OpenGLWidgets) #PUBLIC Qt6::Core Qt6::Widgets Qt6::OpenGLWidgets)
+target_link_libraries(Scene PUBLIC
+    Qt6::Core
+    Qt6::Gui
+    Qt6::Widgets
+    Qt6::OpenGL
+    Qt6::OpenGLWidgets
+)
+
+include_directories(
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/
+)
 
 add_custom_command(TARGET Scene POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_if_different

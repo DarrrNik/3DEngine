@@ -1,12 +1,12 @@
 cmake_minimum_required(VERSION 3.20)
 project(3DEngine VERSION 0.0.1 LANGUAGES CXX)
 
+set(CMAKE_PREFIX_PATH "C:/msys/")
 set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDART_REQUIRED TRUE)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${WORKING_DIRECTORY})
 
 set(WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/Workdir)
-set(MINGW_BIN C:/msys64/mingw64/bin)
-
-add_subdirectory("${CMAKE_SOURCE_DIR}/Scene")
 
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
@@ -14,12 +14,13 @@ set(CMAKE_AUTORCC ON)
 
 set(CMAKE_AUTOUIC_SEARCH_PATHS ${CMAKE_SOURCE_DIR}/form)
 
-set(CMAKE_PREFIX_PATH "C:/msys64/")
+add_subdirectory("${CMAKE_SOURCE_DIR}/Scene")
 
 find_package(Qt6 REQUIRED COMPONENTS 
     Core 
     Widgets 
     OpenGLWidgets
+    OpenGL
 )
 
 include_directories(
@@ -40,11 +41,11 @@ add_executable(${PROJECT_NAME}
 )
 
 set_target_properties(${PROJECT_NAME} PROPERTIES
-    WIN32_EXECUTABLE TRUE
+    WIN32_EXECUTABLE FALSE
     VS_DEBUGGER_WORKING_DIRECTORY "${WORKING_DIRECTORY}"
 )
 
-target_link_libraries(${PROJECT_NAME} PUBLIC Qt6::Core Qt6::Widgets Qt6::OpenGLWidgets Scene)
+target_link_libraries(${PROJECT_NAME} PUBLIC Qt6::Core Qt6::Widgets Qt6::OpenGL Qt6::OpenGLWidgets Scene)
 
 add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy
