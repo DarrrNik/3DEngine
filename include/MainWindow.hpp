@@ -1,10 +1,12 @@
-#pragma once
+#ifndef MAINWINDOW_HPP
+#define MAINWINDOW_HPP
 
 #include <QWidget>
 #include <QMainWindow>
 #include <QOpenGLWidget>
 
-class Scene;
+class QShortcut;
+class OGLScene;
 
 namespace Ui { class MainWindow; };
 
@@ -14,9 +16,12 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget* parent = nullptr, Qt::WindowFlags flags = Qt::WindowFlags());
     ~MainWindow();
+public slots:
+    void OnObjectAdded(const QString& name);
 private:
     Ui::MainWindow* ui;
 
-    Scene* oglWidget;
+    QShortcut* exitShortcut;
 };
 
+#endif
