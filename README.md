@@ -33,8 +33,8 @@ cmake ^
   -DCMAKE_C_COMPILER:FILEPATH=${path/to/C_COMPILER} ^
   -DCMAKE_CXX_COMPILER:FILEPATH=${path/to/CXX_COMPILER} ^
   -G "MinGW Makefiles" ^
-  -S C:/Users/dasha/source/3DEngine ^
-  -B C:/Users/dasha/source/3DEngine/build
+  -S C:/path/to/source ^
+  -B C:/path/to/build
 
 # Сборка
 cmake --build .\build\
